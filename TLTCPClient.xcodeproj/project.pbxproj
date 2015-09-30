@@ -9,10 +9,14 @@
 /* Begin PBXBuildFile section */
 		7EA43F751BB991E30033A457 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EA43F741BB991E30033A457 /* main.m */; };
 		7EA43F781BB991E30033A457 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EA43F771BB991E30033A457 /* AppDelegate.m */; };
-		7EA43F7B1BB991E30033A457 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EA43F7A1BB991E30033A457 /* ViewController.m */; };
-		7EA43F7E1BB991E30033A457 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EA43F7C1BB991E30033A457 /* Main.storyboard */; };
 		7EA43F801BB991E30033A457 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7EA43F7F1BB991E30033A457 /* Assets.xcassets */; };
-		7EA43F831BB991E30033A457 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EA43F811BB991E30033A457 /* LaunchScreen.storyboard */; };
+		7EA440201BBA87360033A457 /* TLTabContainerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EA4401F1BBA87360033A457 /* TLTabContainerController.m */; settings = {ASSET_TAGS = (); }; };
+		7EA440241BBA89E10033A457 /* TCPSocketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EA440231BBA89E10033A457 /* TCPSocketViewController.m */; settings = {ASSET_TAGS = (); }; };
+		7EA4402A1BBA8CC30033A457 /* tab_home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EA440261BBA8CC30033A457 /* tab_home@2x.png */; settings = {ASSET_TAGS = (); }; };
+		7EA4402B1BBA8CC30033A457 /* tab_home@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EA440271BBA8CC30033A457 /* tab_home@3x.png */; settings = {ASSET_TAGS = (); }; };
+		7EA4402C1BBA8CC30033A457 /* tab_home_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EA440281BBA8CC30033A457 /* tab_home_selected@2x.png */; settings = {ASSET_TAGS = (); }; };
+		7EA4402D1BBA8CC30033A457 /* tab_home_selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EA440291BBA8CC30033A457 /* tab_home_selected@3x.png */; settings = {ASSET_TAGS = (); }; };
+		7EA440301BBA8FB80033A457 /* UDPSocketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EA4402F1BBA8FB80033A457 /* UDPSocketViewController.m */; settings = {ASSET_TAGS = (); }; };
 		CE06BD5A57B806D74727C48D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE24EA7E19E9DA498CB2362D /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -22,12 +26,19 @@
 		7EA43F741BB991E30033A457 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7EA43F761BB991E30033A457 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7EA43F771BB991E30033A457 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		7EA43F791BB991E30033A457 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		7EA43F7A1BB991E30033A457 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		7EA43F7D1BB991E30033A457 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7EA43F7F1BB991E30033A457 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		7EA43F821BB991E30033A457 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7EA43F841BB991E30033A457 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7EA4401E1BBA87360033A457 /* TLTabContainerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLTabContainerController.h; sourceTree = "<group>"; };
+		7EA4401F1BBA87360033A457 /* TLTabContainerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLTabContainerController.m; sourceTree = "<group>"; };
+		7EA440211BBA87FC0033A457 /* TLMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TLMacros.h; sourceTree = "<group>"; };
+		7EA440221BBA89E10033A457 /* TCPSocketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPSocketViewController.h; sourceTree = "<group>"; };
+		7EA440231BBA89E10033A457 /* TCPSocketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPSocketViewController.m; sourceTree = "<group>"; };
+		7EA440261BBA8CC30033A457 /* tab_home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_home@2x.png"; sourceTree = "<group>"; };
+		7EA440271BBA8CC30033A457 /* tab_home@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_home@3x.png"; sourceTree = "<group>"; };
+		7EA440281BBA8CC30033A457 /* tab_home_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_home_selected@2x.png"; sourceTree = "<group>"; };
+		7EA440291BBA8CC30033A457 /* tab_home_selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_home_selected@3x.png"; sourceTree = "<group>"; };
+		7EA4402E1BBA8FB80033A457 /* UDPSocketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDPSocketViewController.h; sourceTree = "<group>"; };
+		7EA4402F1BBA8FB80033A457 /* UDPSocketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDPSocketViewController.m; sourceTree = "<group>"; };
 		9386B2581FF3CD9832CC6110 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		CE24EA7E19E9DA498CB2362D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -84,13 +95,17 @@
 			children = (
 				7EA43F761BB991E30033A457 /* AppDelegate.h */,
 				7EA43F771BB991E30033A457 /* AppDelegate.m */,
-				7EA43F791BB991E30033A457 /* ViewController.h */,
-				7EA43F7A1BB991E30033A457 /* ViewController.m */,
-				7EA43F7C1BB991E30033A457 /* Main.storyboard */,
+				7EA4401E1BBA87360033A457 /* TLTabContainerController.h */,
+				7EA4401F1BBA87360033A457 /* TLTabContainerController.m */,
 				7EA43F7F1BB991E30033A457 /* Assets.xcassets */,
-				7EA43F811BB991E30033A457 /* LaunchScreen.storyboard */,
 				7EA43F841BB991E30033A457 /* Info.plist */,
 				7EA43F731BB991E30033A457 /* Supporting Files */,
+				7EA440211BBA87FC0033A457 /* TLMacros.h */,
+				7EA440221BBA89E10033A457 /* TCPSocketViewController.h */,
+				7EA440231BBA89E10033A457 /* TCPSocketViewController.m */,
+				7EA4402E1BBA8FB80033A457 /* UDPSocketViewController.h */,
+				7EA4402F1BBA8FB80033A457 /* UDPSocketViewController.m */,
+				7EA440251BBA8CC30033A457 /* Resources */,
 			);
 			path = TLTCPClient;
 			sourceTree = "<group>";
@@ -101,6 +116,17 @@
 				7EA43F741BB991E30033A457 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7EA440251BBA8CC30033A457 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7EA440261BBA8CC30033A457 /* tab_home@2x.png */,
+				7EA440271BBA8CC30033A457 /* tab_home@3x.png */,
+				7EA440281BBA8CC30033A457 /* tab_home_selected@2x.png */,
+				7EA440291BBA8CC30033A457 /* tab_home_selected@3x.png */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,9 +188,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7EA43F831BB991E30033A457 /* LaunchScreen.storyboard in Resources */,
+				7EA4402C1BBA8CC30033A457 /* tab_home_selected@2x.png in Resources */,
+				7EA4402D1BBA8CC30033A457 /* tab_home_selected@3x.png in Resources */,
 				7EA43F801BB991E30033A457 /* Assets.xcassets in Resources */,
-				7EA43F7E1BB991E30033A457 /* Main.storyboard in Resources */,
+				7EA4402B1BBA8CC30033A457 /* tab_home@3x.png in Resources */,
+				7EA4402A1BBA8CC30033A457 /* tab_home@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,32 +236,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7EA43F7B1BB991E30033A457 /* ViewController.m in Sources */,
 				7EA43F781BB991E30033A457 /* AppDelegate.m in Sources */,
 				7EA43F751BB991E30033A457 /* main.m in Sources */,
+				7EA440201BBA87360033A457 /* TLTabContainerController.m in Sources */,
+				7EA440241BBA89E10033A457 /* TCPSocketViewController.m in Sources */,
+				7EA440301BBA8FB80033A457 /* UDPSocketViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		7EA43F7C1BB991E30033A457 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7EA43F7D1BB991E30033A457 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		7EA43F811BB991E30033A457 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7EA43F821BB991E30033A457 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		7EA43F851BB991E30033A457 /* Debug */ = {

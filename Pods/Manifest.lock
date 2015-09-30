@@ -34,17 +34,25 @@ PODS:
   - ASIHTTPRequest/S3 (1.8.2):
     - ASIHTTPRequest/Core
   - CocoaAsyncSocket (7.4.2)
+  - Mantle (1.5.5):
+    - Mantle/extobjc (= 1.5.5)
+  - Mantle/extobjc (1.5.5)
+  - Masonry (0.5.3)
   - Reachability (3.2)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.3.1)
   - ASIHTTPRequest (~> 1.8.2)
   - CocoaAsyncSocket (~> 7.4.2)
+  - Mantle (~> 1.5)
+  - Masonry (~> 0.5.3)
 
 SPEC CHECKSUMS:
   AFNetworking: 05b9f6e3aa5ac45bc383b4bb108ef338080a26c7
   ASIHTTPRequest: ec013992946676b7978dcbde6396d57312d21db4
   CocoaAsyncSocket: f5783bdedd232d91b89769bc4b5a1580aed518ad
+  Mantle: 1b29072a707453975b200a173cf77ec1e2810b75
+  Masonry: 9f515466afe48632562342a40a1c224071a1a022
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
 
 COCOAPODS: 0.38.2
