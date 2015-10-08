@@ -96,7 +96,8 @@
         intergerLen += 1;
     }
     [attriString addAttribute:NSForegroundColorAttributeName value:[UIColor orangeColor] range:NSMakeRange(0,intergerLen)];
-    
+    [attriString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:15.0] range:NSMakeRange(0,[strChatContent length])];
+    [attriString addAttribute:NSFontAttributeName value:[UIFont italicSystemFontOfSize:15.0] range:NSMakeRange(intergerLen,[strChatContent length]-intergerLen)];
     [[self.receiveDataView textStorage] appendAttributedString:attriString];
     [self scrollOutputToBottom];
 }
