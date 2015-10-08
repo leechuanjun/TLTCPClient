@@ -55,6 +55,9 @@
     self.sendMessageText.delegate=self;
     [self.sendMessageText setTag:3];
     
+    self.clientIPAddrText.text = @"127.0.0.1";
+    self.clientPortText.text = @"22533";
+    
     nClickFlag = 0;
     bDownUp = NO;
 }
@@ -77,6 +80,12 @@
 - (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
     return UIInterfaceOrientationPortrait;
+}
+
+-(void)scrollOutputToBottom {
+    CGPoint p = [self.receiveDataView contentOffset];
+    [self.receiveDataView setContentOffset:p animated:NO];
+    [self.receiveDataView scrollRangeToVisible:NSMakeRange([self.receiveDataView.text length], 0)];
 }
 
 // 初始化界面
@@ -198,7 +207,7 @@
         make.bottom.equalTo(clientPortLabel);
     }];
     
-    self.sendMessageText.text = @"hello world!";
+    self.sendMessageText.text = @"";
     [self.sendMessageText mas_makeConstraints:^(MASConstraintMaker *make) {
         @strongify(self);
         make.left.equalTo(self.receiveDataView);
@@ -225,7 +234,7 @@
     {
         socket=[[AsyncSocket alloc] initWithDelegate:self];
         NSError *error=nil;
-        if(![socket connectToHost:self.clientIPAddrText.text onPort:1111 error:&error])
+        if(![socket connectToHost:self.clientIPAddrText.text onPort:[self.clientPortText.text intValue] error:&error])
         {
             self.statusLabel.text=@"连接服务器失败!";
         }
@@ -241,7 +250,38 @@
 }
 
 -(void) sendMessage {
-    NSLog(@"send Message!!!");
+    if(![self.sendMessageText.text isEqualToString:@""] && ![self.clientIPAddrText.text isEqualToString:@""])
+    {
+        NSString *message=[NSString stringWithFormat:@"%@:%@",self.clientIPAddrText.text,self.sendMessageText.text];
+        if(socket==nil)
+        {
+            socket=[[AsyncSocket alloc] initWithDelegate:self];
+        }
+        NSString *content=[message stringByAppendingString:@"\r\n"];
+        [socket writeData:[content dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:0];
+        
+        
+        NSString *strChatContent = [NSString stringWithFormat:@"me:%@\r\n",self.sendMessageText.text];
+    
+        NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:strChatContent];
+        NSRange numberRange = [strChatContent rangeOfString:@"me:"];
+        NSUInteger intergerLen = (numberRange.location == NSNotFound) ? [strChatContent length] : numberRange.location;
+        [attriString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(intergerLen, numberRange.length)];
+        
+        [[self.receiveDataView textStorage] appendAttributedString:attriString];
+        [self scrollOutputToBottom];
+    }
+    else
+    {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Waring" message:@"Please input Message!" preferredStyle:UIAlertControllerStyleAlert];
+        [self presentViewController:alert animated:YES completion:nil];
+        UIAlertAction *actionOK = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            // 回调在block里面
+            return ;
+        }];
+        [alert addAction:actionOK];
+    }
+    
 }
 
 #pragma mark - text delegate
@@ -342,9 +382,10 @@
     
     [sock readDataWithTimeout:1 tag:0];
 }
+
 - (void)onSocket:(AsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
-    //[sock readDataToData:[AsyncSocket CRLFData] withTimeout:-1 tag:0];  // 这句话仅仅接收\r\n的数据
+//    [sock readDataToData:[AsyncSocket CRLFData] withTimeout:-1 tag:0];  // 这句话仅仅接收\r\n的数据
     
     [sock readDataWithTimeout: -1 tag: 0];
 }
@@ -352,7 +393,15 @@
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag {
     NSString* aStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSLog(@"Hava received datas is :%@",aStr);
-    self.receiveDataView.text = aStr;
+    
+    NSString *strChatContent = [NSString stringWithFormat:@"%@",aStr];
+    NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:strChatContent];
+    NSRange numberRange = [strChatContent rangeOfString:@":"];
+    NSUInteger intergerLen = (numberRange.location == NSNotFound) ? [strChatContent length] : numberRange.location;
+    [attriString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0,intergerLen)];
+    
+    [[self.receiveDataView textStorage] appendAttributedString:attriString];
+    [self scrollOutputToBottom];
     
     [socket readDataWithTimeout:-1 tag:0];
 }
