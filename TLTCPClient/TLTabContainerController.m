@@ -48,8 +48,8 @@ IMP_SINGLETON(TLTabContainerController);
   
     self.tabNavsArr = [NSArray arrayWithObjects:navi_0, navi_1, nil];
     
-    navi_0.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"TCP" image:[UIImage imageNamed:@"tab_home.png"] selectedImage:[UIImage imageNamed:@"tab_home_selected.png"]];
-    navi_1.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"UDP" image:[UIImage imageNamed:@"tab_home.png"] selectedImage:[UIImage imageNamed:@"tab_home_selected.png"]];
+    navi_0.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"TCP" image:[UIImage imageNamed:@"tab_home"] selectedImage:[UIImage imageNamed:@"tab_home_selected"]];
+    navi_1.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"UDP" image:[UIImage imageNamed:@"tab_more"] selectedImage:[UIImage imageNamed:@"tab_more_selected"]];
   
     navi_0.tabBarItem.tag = 0;
     navi_1.tabBarItem.tag = 1;
@@ -57,7 +57,7 @@ IMP_SINGLETON(TLTabContainerController);
     [self setViewControllers:[NSArray arrayWithObjects:navi_0, navi_1 ,nil]];
    
     self.tabBar.translucent = YES;
-    self.tabBar.tintColor = [UIColor grayColor];
+//    self.tabBar.tintColor = [UIColor grayColor];
 }
 
 

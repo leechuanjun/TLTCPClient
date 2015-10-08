@@ -15,11 +15,13 @@
 {
     AsyncSocket *socket;
     int nClickFlag;
+    BOOL bDownUp;
 }
 
 @property (nonatomic, strong) UITextView *receiveDataView;
 @property (nonatomic, strong) UILabel *statusLabel;
 @property (nonatomic, strong) UITextField *clientIPAddrText;
+@property (nonatomic, strong) UITextField *clientPortText;
 @property (nonatomic, strong) UITextField *sendMessageText;
 
 @end
@@ -48,9 +50,13 @@
     
     self.clientIPAddrText.delegate=self;
     [self.clientIPAddrText setTag:1];
+    self.clientPortText.delegate = self;
+    [self.clientPortText setTag:2];
     self.sendMessageText.delegate=self;
-    [self.sendMessageText setTag:2];
+    [self.sendMessageText setTag:3];
+    
     nClickFlag = 0;
+    bDownUp = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -84,6 +90,7 @@
     self.statusLabel = [UILabel new];
     [self.view addSubview:self.statusLabel];
     
+    // IP地址
     UILabel *clientIPAddrLabel = [UILabel new];
     clientIPAddrLabel.text = @"Client IP: ";
     [self.view addSubview:clientIPAddrLabel];
@@ -100,6 +107,15 @@
     [connectButton addTarget:self action:@selector(connectServer) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:connectButton];
     
+    // 端口号
+    UILabel *clientPortLabel = [UILabel new];
+    clientPortLabel.text = @"Client Port: ";
+    [self.view addSubview:clientPortLabel];
+    self.clientPortText = [UITextField new];
+    self.clientPortText.backgroundColor = [UIColor grayColor];
+    [self.view addSubview:self.clientPortText];
+    
+    // 发送文本
     self.sendMessageText = [UITextField new];
     self.sendMessageText.backgroundColor = [UIColor colorWithWhite:0.38 alpha:8.000];
     [self.view addSubview:self.sendMessageText];
@@ -150,29 +166,43 @@
         @strongify(self);
         make.left.equalTo(labelStatus);
         make.top.equalTo(labelStatus.mas_bottom).with.offset(10);
-        make.width.equalTo(self.receiveDataView).with.dividedBy(4.8f/1.f);
+        make.width.equalTo(self.receiveDataView).with.dividedBy(3.7f/1.f);
     }];
     [self.clientIPAddrText mas_makeConstraints:^(MASConstraintMaker *make) {
         @strongify(self);
         make.left.equalTo(clientIPAddrLabel.mas_right);
         make.top.equalTo(clientIPAddrLabel);
-        make.width.equalTo(self.receiveDataView).with.dividedBy(1.7f/1.f);
-        make.bottom.equalTo(clientIPAddrLabel);
-    }];
-    [connectButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        @strongify(self);
-        make.left.equalTo(self.clientIPAddrText.mas_right).offset(5);
-        make.top.equalTo(clientIPAddrLabel);
-        make.right.equalTo(self.statusLabel.mas_right);
+        make.width.equalTo(self.receiveDataView).with.dividedBy(2.0f/1.f);
         make.bottom.equalTo(clientIPAddrLabel);
     }];
     
+    [clientPortLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        @strongify(self);
+        make.left.equalTo(clientIPAddrLabel);
+        make.top.equalTo(clientIPAddrLabel.mas_bottom).with.offset(10);
+        make.width.equalTo(self.receiveDataView).with.dividedBy(3.7f/1.f);
+    }];
+    [self.clientPortText mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(clientPortLabel.mas_right);
+        make.top.equalTo(clientPortLabel);
+        make.right.equalTo(self.clientIPAddrText);
+        make.height.equalTo(self.clientIPAddrText);
+        make.bottom.equalTo(clientPortLabel);
+    }];
+    
+    [connectButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        @strongify(self);
+        make.left.equalTo(self.clientPortText.mas_right).offset(5);
+        make.top.equalTo(clientPortLabel);
+        make.right.equalTo(self.statusLabel.mas_right);
+        make.bottom.equalTo(clientPortLabel);
+    }];
     
     self.sendMessageText.text = @"hello world!";
     [self.sendMessageText mas_makeConstraints:^(MASConstraintMaker *make) {
         @strongify(self);
         make.left.equalTo(self.receiveDataView);
-        make.top.equalTo(self.clientIPAddrText.mas_bottom).with.offset(10);
+        make.top.equalTo(self.clientPortText.mas_bottom).with.offset(10);
         make.width.equalTo(self.receiveDataView);
         make.height.equalTo(@50);
     }];
@@ -184,15 +214,30 @@
         make.width.equalTo(self.receiveDataView);
         make.height.equalTo(@40);
     }];
-    
 }
-
 
 
 #pragma mark - hundle event
 
 -(void) connectServer {
-    NSLog(@"Connecct server!!!");
+    NSLog(@"start Connecct server!!!");
+    if(socket==nil)
+    {
+        socket=[[AsyncSocket alloc] initWithDelegate:self];
+        NSError *error=nil;
+        if(![socket connectToHost:self.clientIPAddrText.text onPort:1111 error:&error])
+        {
+            self.statusLabel.text=@"连接服务器失败!";
+        }
+        else
+        {
+            self.statusLabel.text=@"已连接!";
+        }
+    }
+    else
+    {
+        self.statusLabel.text=@"已连接!";
+    }
 }
 
 -(void) sendMessage {
@@ -203,28 +248,45 @@
 
 - (void) textFieldDidBeginEditing:(UITextField *)textField
 {
+    if ([textField tag] == 1) {
+        nClickFlag = 1;
+    }
+    
     if([textField tag] == 2)
     {
-        [self viewUp];
         nClickFlag = 2;
     }
     
-    if ([textField tag] == 1) {
-        nClickFlag = 1;
+    if ([textField tag] == 3) {
+        nClickFlag = 3;
+    }
+    
+    if (!bDownUp) {
+        [self viewUp];
+        bDownUp = YES;
     }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField;
 {
     [textField resignFirstResponder];
-    if([textField tag] == 2)
-    {
-        [self viewDown];
-        nClickFlag = 2;
-    }
     
     if ([textField tag] == 1) {
         nClickFlag = 1;
+    }
+    
+    if([textField tag] == 2)
+    {
+        nClickFlag = 2;
+    }
+    
+    if ([textField tag] == 3) {
+        nClickFlag = 3;
+    }
+    
+    if (bDownUp) {
+        [self viewDown];
+        bDownUp = NO;
     }
     return YES;
 }
@@ -237,8 +299,16 @@
     }
     
     if (nClickFlag == 2) {
+        [self.clientPortText resignFirstResponder];
+    }
+    
+    if (nClickFlag == 3) {
         [self.sendMessageText resignFirstResponder];
+    }
+    
+    if (bDownUp) {
         [self viewDown];
+        bDownUp = NO;
     }
 }
 
@@ -263,5 +333,48 @@
     self.view.frame=frame;
     [UIView commitAnimations];
 }
+
+
+#pragma AsyncScoket Delagate
+
+- (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port {
+    NSLog(@"onSocket:%p didConnectToHost:%@ port:%hu",sock,host,port);
+    
+    [sock readDataWithTimeout:1 tag:0];
+}
+- (void)onSocket:(AsyncSocket *)sock didWriteDataWithTag:(long)tag
+{
+    //[sock readDataToData:[AsyncSocket CRLFData] withTimeout:-1 tag:0];  // 这句话仅仅接收\r\n的数据
+    
+    [sock readDataWithTimeout: -1 tag: 0];
+}
+
+- (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag {
+    NSString* aStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSLog(@"Hava received datas is :%@",aStr);
+    self.receiveDataView.text = aStr;
+    
+    [socket readDataWithTimeout:-1 tag:0];
+}
+
+- (void)onSocket:(AsyncSocket *)sock didSecure:(BOOL)flag
+{
+    NSLog(@"onSocket:%p didSecure:YES", sock);
+}
+
+- (void)onSocket:(AsyncSocket *)sock willDisconnectWithError:(NSError *)err
+{
+    NSLog(@"onSocket:%p willDisconnectWithError:%@", sock, err);
+}
+
+- (void)onSocketDidDisconnect:(AsyncSocket *)sock
+{
+    //断开连接了
+    NSLog(@"onSocketDidDisconnect:%p", sock);
+    NSString *msg = @"Sorry this connect is failure";
+    self.statusLabel.text=msg;
+    socket = nil;
+}
+
 
 @end
