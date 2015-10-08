@@ -88,6 +88,19 @@
     [self.receiveDataView scrollRangeToVisible:NSMakeRange([self.receiveDataView.text length], 0)];
 }
 
+-(void)setTextViewContent:(NSString *)strChatContent {
+    NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:strChatContent];
+    NSRange numberRange = [strChatContent rangeOfString:@":"];
+    NSUInteger intergerLen = (numberRange.location == NSNotFound) ? [strChatContent length] : numberRange.location;
+    if (intergerLen < [strChatContent length]) {
+        intergerLen += 1;
+    }
+    [attriString addAttribute:NSForegroundColorAttributeName value:[UIColor orangeColor] range:NSMakeRange(0,intergerLen)];
+    
+    [[self.receiveDataView textStorage] appendAttributedString:attriString];
+    [self scrollOutputToBottom];
+}
+
 // 初始化界面
 -(void) initInterface {
     self.receiveDataView = [[UITextView alloc] init];
@@ -262,14 +275,7 @@
         
         
         NSString *strChatContent = [NSString stringWithFormat:@"me:%@\r\n",self.sendMessageText.text];
-    
-        NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:strChatContent];
-        NSRange numberRange = [strChatContent rangeOfString:@"me:"];
-        NSUInteger intergerLen = (numberRange.location == NSNotFound) ? [strChatContent length] : numberRange.location;
-        [attriString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(intergerLen, numberRange.length)];
-        
-        [[self.receiveDataView textStorage] appendAttributedString:attriString];
-        [self scrollOutputToBottom];
+        [self setTextViewContent:strChatContent];
     }
     else
     {
@@ -395,13 +401,7 @@
     NSLog(@"Hava received datas is :%@",aStr);
     
     NSString *strChatContent = [NSString stringWithFormat:@"%@",aStr];
-    NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:strChatContent];
-    NSRange numberRange = [strChatContent rangeOfString:@":"];
-    NSUInteger intergerLen = (numberRange.location == NSNotFound) ? [strChatContent length] : numberRange.location;
-    [attriString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0,intergerLen)];
-    
-    [[self.receiveDataView textStorage] appendAttributedString:attriString];
-    [self scrollOutputToBottom];
+    [self setTextViewContent:strChatContent];
     
     [socket readDataWithTimeout:-1 tag:0];
 }
